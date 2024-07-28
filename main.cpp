@@ -1,7 +1,6 @@
 #include <iostream>
 #include <fstream>
 #include <string>
-#include <string_view>
 #include <filesystem>
 
 const uint32_t PatchOffset = 0x2A7;
@@ -36,7 +35,9 @@ std::string GetNewPath(const std::string& filePath) {
     std::string directory = path.parent_path().string();
     std::string defaultSeperator = "";
     std::string separator;
-    if (!directory.empty())
+    if (directory.empty())
+        separator = defaultSeperator;
+    else
         separator = std::filesystem::path::preferred_separator;
     return directory + separator + fileName + "_patched.exe";
 }
